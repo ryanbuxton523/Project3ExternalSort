@@ -1,9 +1,34 @@
+// On my honor:
+//
+// - I have not used source code obtained from another student,
+// or any other unauthorized source, either modified or
+// unmodified.
+//
+// - All source code and documentation used in my program is
+// either my original work, or was derived by me from the
+// source code published in the textbook for this course.
+//
+// - I have not discussed coding details about this project with
+// anyone other than my partner (in the case of a joint
+// submission), instructor, ACM/UPE tutors or the TAs assigned
+// to this course. I understand that I may discuss the concepts
+// of this program with other students, and that another student
+// may help me debug my program so long as neither of us writes
+// anything during the discussion or modifies any computer file
+// during the discussion. I have violated neither the spirit nor
+// letter of this restriction.
+
 import java.io.EOFException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Ross Manfred
+ * @author Ryan Buxton
+ */
 public class MultiwayMergeDriver {
     private static final int BUFFER_SIZE = 512;
 
@@ -14,7 +39,16 @@ public class MultiwayMergeDriver {
     private Record[] memory; // array from the heap
     private ArrayList<Run> runs; // list of runs
 
-
+    /**
+     * Creates a new MultiWayMerger object
+     * @param inputBuffer input buffer between file and sort
+     * @param outputBuffer input buffer between sort and output
+     * @param inputFile input file
+     * @param outputFile output file
+     * @param runFile //TODO
+     * @param heapArray //TODO
+     * @param runs //TODO
+     */
     public MultiwayMergeDriver(
         Buffer inputBuffer,
         Buffer outputBuffer,
@@ -32,7 +66,10 @@ public class MultiwayMergeDriver {
         this.runs = runs;
     }
 
-
+    /**
+     * Merge manager for data keeping track of when last merge should occur
+     * @throws IOException
+     */
     public void multiwayMerge() throws IOException {
         int numRuns;
         boolean isLastMerge = false;
@@ -44,7 +81,12 @@ public class MultiwayMergeDriver {
             mergeRuns(isLastMerge);
         }
     }
-
+    
+    /**
+     * 
+     * @param isLast
+     * @throws IOException
+     */
     @SuppressWarnings("resource")
     public void mergeRuns(boolean isLast) throws IOException {
         RandomAccessFile output = isLast ? outputFile : runFile;
@@ -81,7 +123,11 @@ public class MultiwayMergeDriver {
         }
     }
 
-
+    /**
+     * 
+     * @param shouldPrint
+     * @param blocksPrinted
+     */
     private void checkPrint(boolean shouldPrint, int blocksPrinted) {
         if (shouldPrint) {
             if (blocksPrinted % 5 == 0 && blocksPrinted != 0) {
@@ -107,7 +153,12 @@ public class MultiwayMergeDriver {
         }
     }
 
-
+    /**
+     * 
+     * @param run
+     * @param arrayStart
+     * @throws IOException
+     */
     private void loadRun(Run run, int arrayStart) throws IOException {
         run.setArrayCurr(arrayStart);
         long endOffset = run.getEndOffset();
@@ -130,7 +181,12 @@ public class MultiwayMergeDriver {
         run.setCurrOffset(runFile.getFilePointer());
     }
 
-
+    /**
+     * 
+     * @param firstRun
+     * @return
+     * @throws IOException
+     */
     private Record getMinRun(int firstRun) throws IOException {
         Record min = null;
         Run run = null;
