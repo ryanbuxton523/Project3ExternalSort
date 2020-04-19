@@ -33,7 +33,9 @@ public class Externalsort {
 	 * Main method automatically called on execution of program
 	 * Expects filenames for input and output files for use by program
 	 * Calls appropriate objects to accomplish goals of project
-	 * @param args
+	 * pre: input filename is a valid file to use
+	 * post: outputFile has records sorted as desired
+	 * @param args contains names of input and output files
 	 */
     public static void main(String[] args) {
         try {

@@ -24,7 +24,7 @@ import java.io.RandomAccessFile;
 import student.TestCase;
 
 /**
- * 
+ * Tests methods and fields of RecordSorter class
  * @author Ross Manfred
  * @author Ryan Buxton
  */
@@ -36,7 +36,10 @@ public class RecordSorterTest extends TestCase {
     private FileWriter textFile;
     private FileWriter otherFile;
 
-
+    /**
+     * Sets up for each test method
+     * @throws IOException
+     */
     public void setUp() throws IOException {
         inputFile = new RandomAccessFile("src/test200.bin", "r");
         outputFile = new RandomAccessFile("output.bin", "rw");
@@ -48,7 +51,10 @@ public class RecordSorterTest extends TestCase {
         otherFile = new FileWriter("output.txt");
     }
 
-
+    /**
+     * Prints reference data to output file for verification
+     * @throws IOException
+     */
     public void test() throws IOException {
         sorter.printFileContents(outputFile, otherFile);
         sorter.printFileContents(runFile, textFile);

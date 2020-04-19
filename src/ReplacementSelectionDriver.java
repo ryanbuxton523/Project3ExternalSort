@@ -25,7 +25,7 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 /**
- * 
+ * Manages sort operations, heap and buffer operations
  * @author Ross Manfred
  * @author Ryan Buxton
  */
@@ -40,7 +40,16 @@ public class ReplacementSelectionDriver {
     private RandomAccessFile inputFile;
     private RandomAccessFile runFile; // make the method return the list
 
-
+    /**
+     * Creates a new ReplacementSelectionDriver object
+     * pre: buffers, files are valid and not null
+     * post: fields are filled, MinHeap sorted data from heapArray
+     * @param inputBuffer input buffer for data
+     * @param outputBuffer output buffer before output file
+     * @param input input file
+     * @param run file to store runs for later merge
+     * @throws IOException
+     */
     public ReplacementSelectionDriver(
         Buffer inputBuffer,
         Buffer outputBuffer,
@@ -55,7 +64,15 @@ public class ReplacementSelectionDriver {
         heap = new MinHeap<Record>(heapArray, HEAP_SIZE, HEAP_SIZE);
     }
 
-
+    /**
+     * Builds and fills a heap array with data from input file
+     * provided by input buffer
+     * Later turned into a min heap for sorting purposes
+     * pre: inputFile, buffer is valid, buffer_size is not 0
+     * post: array of records read in from buffer is produced
+     * @return heap array of records
+     * @throws IOException
+     */
     private Record[] getHeapArray() throws IOException {
         Record[] heapArray = new Record[HEAP_SIZE];
         for (int i = 0; i < (HEAP_SIZE / BUFFER_SIZE); i++) { // maybe make this
@@ -69,7 +86,13 @@ public class ReplacementSelectionDriver {
         return heapArray;
     }
 
-
+    /**
+     * Manages a run of data
+     * pre: inputFile is valid, buffers are not null
+     * post: a run is created from input data and heap
+     * @return the run created
+     * @throws IOException
+     */
     public Run createRun() throws IOException {
         long offset = runFile.getFilePointer();
         Record min = null;
@@ -110,7 +133,13 @@ public class ReplacementSelectionDriver {
         return new Run(offset, runFile.getFilePointer());
     }
 
-
+    /**
+     * Manages creating all runs
+     * pre: inputFile is valid
+     * post: a list of runs is returned
+     * @return	a list of the runs created in this process
+     * @throws IOException
+     */
     public ArrayList<Run> createRuns() throws IOException {
         ArrayList<Run> runs = new ArrayList<Run>();
         long length = inputFile.length();
@@ -123,7 +152,12 @@ public class ReplacementSelectionDriver {
         return runs;
     }
 
-    
+    /**
+     * Getter for heapArray object
+     * pre: heapArray is valid
+     * post: record array heapArray returned
+     * @return heapArray
+     */
     public Record[] getHeapMemory() {
         return heapArray;
     }

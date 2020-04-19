@@ -25,12 +25,23 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 /**
- * 
+ * Sort manager for input records
+ * Sets up buffers and other objects
  * @author Ross Manfred
  * @author Ryan Buxton
  */
 public class RecordSorter {
-
+	
+	/**
+	 * Creates a new RecordSorter object
+	 * manages sort and merge operations on data
+	 * pre: files are all valid
+	 * post: outputFile is written with proper data in order
+	 * @param inputFile	file containing input values
+	 * @param outputFile ultimate file for output of data
+	 * @param runFile temporary output file storing runs for merge
+	 * @throws IOException
+	 */
     public RecordSorter(
         RandomAccessFile inputFile,
         RandomAccessFile outputFile,
@@ -54,6 +65,14 @@ public class RecordSorter {
 
     }
     
+    /**
+     * Prints contents of sorter to a provided output file
+     * pre: file and writer are valid
+     * post: contents are printed properly using FileWriter
+     * @param readFile	input file to get records from
+     * @param writeFile output file to write records
+     * @throws IOException
+     */
     public void printFileContents(
         RandomAccessFile readFile,
         FileWriter writeFile)

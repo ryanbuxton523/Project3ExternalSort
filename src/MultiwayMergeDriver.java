@@ -25,7 +25,8 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 /**
- * 
+ * Manages merge operations on run file to ultimately create fully sorted
+ * output for output file
  * @author Ross Manfred
  * @author Ryan Buxton
  */
@@ -41,13 +42,15 @@ public class MultiwayMergeDriver {
 
     /**
      * Creates a new MultiWayMerger object
+     * pre: buffers are not null, inputFile is valid, runFile contains data
+     * post: fields of object are filled with parameter input
      * @param inputBuffer input buffer between file and sort
      * @param outputBuffer input buffer between sort and output
      * @param inputFile input file
      * @param outputFile output file
-     * @param runFile //TODO
-     * @param heapArray //TODO
-     * @param runs //TODO
+     * @param runFile file containing runs through the data for merge
+     * @param heapArray heap of data
+     * @param runs list of runs in run file
      */
     public MultiwayMergeDriver(
         Buffer inputBuffer,
@@ -68,6 +71,8 @@ public class MultiwayMergeDriver {
 
     /**
      * Merge manager for data keeping track of when last merge should occur
+     * pre: outputBuffer is not null
+     * post: sorted data is printed to outputFile
      * @throws IOException
      */
     public void multiwayMerge() throws IOException {
@@ -83,8 +88,10 @@ public class MultiwayMergeDriver {
     }
     
     /**
-     * 
-     * @param isLast
+     * Merges list of runs within runFile
+     * pre: outputFile and runFile are valid
+     * post: data is merged in runFile or final contents are printed to outputFile
+     * @param isLast if last merge is occurring
      * @throws IOException
      */
     @SuppressWarnings("resource")
@@ -124,9 +131,12 @@ public class MultiwayMergeDriver {
     }
 
     /**
-     * 
-     * @param shouldPrint
-     * @param blocksPrinted
+     * Conditional print breaks up block if needed
+     * pre: parameter values are correct, there are things to 
+     * print in the output buffer
+     * post: first record of output buffer is printed if bool is true
+     * @param shouldPrint boolean condition determining if print occurs
+     * @param blocksPrinted number of blocks printed so far
      */
     private void checkPrint(boolean shouldPrint, int blocksPrinted) {
         if (shouldPrint) {
@@ -140,8 +150,11 @@ public class MultiwayMergeDriver {
 
 
     /**
+     * TODO ??
      * load first block of first 8 runs into memory
-     * 
+     * pre: first run points to valid location
+     * post: first block of first 8 runs are now in memory
+     * @param firstRun position of first run
      * @throws IOException
      */
     private void loadRuns(int firstRun) throws IOException {
@@ -154,9 +167,11 @@ public class MultiwayMergeDriver {
     }
 
     /**
-     * 
-     * @param run
-     * @param arrayStart
+     * TODO I have no idea
+     * pre: run is not null, arrayStart will give valid locations in memory
+     * post:???
+     * @param run run object we modify for the method
+     * @param arrayStart start location for array to place in run
      * @throws IOException
      */
     private void loadRun(Run run, int arrayStart) throws IOException {
@@ -182,9 +197,11 @@ public class MultiwayMergeDriver {
     }
 
     /**
-     * 
-     * @param firstRun
-     * @return
+     * Returns the minimum run within the run file
+     * pre: fields are valid in object, first run points to an actual run
+     * post: the minimum record has been returned
+     * @param firstRun	position of the first run
+     * @return	minimum record
      * @throws IOException
      */
     private Record getMinRun(int firstRun) throws IOException {

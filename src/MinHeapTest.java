@@ -39,7 +39,8 @@ public class MinHeapTest extends TestCase {
     }
     
     /**
-     * Tests removal of min value
+     * Tests removal of min value for correct return value and selection
+     * under random input
      */
     public void testRemoveMin() {
         Integer i = heap.removemin();
@@ -66,7 +67,8 @@ public class MinHeapTest extends TestCase {
     }
     
     /**
-     * 
+     * Tests removal of min value when initial numbers provided in descending order
+     * Opposite of desired
      */
     public void testRemoveOpposite() {
         Integer[] values = { new Integer(5), new Integer(4), new Integer(3),
@@ -86,7 +88,9 @@ public class MinHeapTest extends TestCase {
     }
     
     /**
-     * 
+     * Tests operation of moving parameter value to end of heap and decrementing size to
+     * eliminate it, moving latest value in heap before this to top of heap, siftdown to 
+     * occur later
      */
     public void testLast() {
         Integer[] values = { new Integer(5), new Integer(4), new Integer(3),
@@ -118,7 +122,7 @@ public class MinHeapTest extends TestCase {
     }
     
     /**
-     * 
+     * Tests same as previous when initial data is in descending order
      */
     public void testLast2() {
         Integer[] values = { new Integer(5), new Integer(4), new Integer(3),

@@ -21,7 +21,7 @@
 import student.TestCase;
 
 /**
- * 
+ * tests methods and fields of record class
  * @author Ross Manfred
  * @author Ryan Buxton
  */
@@ -30,7 +30,9 @@ public class RecordTest extends TestCase {
     private Record record2;
 
 
-
+    /**
+     * Sets up for each test
+     */
     public void setUp() {
         byte[] data = {0x12, 0x34, 0x56, 0x78, 0x12, 0x12, 0x34, 0x45,
             0x12, 0x34, 0x56, 0x78, 0x12, 0x12, 0x34, 0x45};
@@ -40,6 +42,9 @@ public class RecordTest extends TestCase {
         record2 = new Record(data2);
     }
     
+    /**
+     * Tests conversion of record to string
+     */
     public void testToString() {
        System.out.println(record.toString());
        System.out.println(record.toString());
